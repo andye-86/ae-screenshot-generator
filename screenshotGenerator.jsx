@@ -1,7 +1,8 @@
 // ============================================================================
 // screenshotGenerator.jsx
 // ----------------------------------------------------------------------------
-// For each comp selected in the Project panel, saves a PNG screenshot every
+// For each comp selected in the Project panel (or the active comp if none
+// are selected), saves a PNG screenshot every
 // N frames starting at frame 0, plus one final screenshot of the comp's
 // last frame if it doesn't already land on an N-frame boundary.
 //
@@ -133,8 +134,12 @@
         }
     }
 
+    if (!comps.length && app.project.activeItem instanceof CompItem) {
+        comps.push(app.project.activeItem);
+    }
+
     if (!comps.length) {
-        alert(SCRIPT_NAME + ": select one or more comps in the Project panel.");
+        alert(SCRIPT_NAME + ": select one or more comps in the Project panel, or open a comp.");
         return;
     }
 
